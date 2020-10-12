@@ -1,5 +1,3 @@
-@startuml
-
 title Modelo del dominio del juego MasterMind - Class Diagram
 
 
@@ -26,7 +24,7 @@ Fila *--> "2" AgujeroPuntuacion
 FilaCodigoSecreto *--> "5" AgujeroGrande
 
 Ronda *--> Inicio
-Ronda *--> "1..n" Jugada
+Ronda *--> "1..12" Jugada
 Ronda *--> Cifrador
 Ronda *--> Descifrador
 Ronda *--> Final
@@ -73,7 +71,3 @@ EspigaPuntuacion *--> ColorPuntuacion
 
 ColorPuntuacion <|-- Rojo
 ColorPuntuacion <|-- Azul
-
-
-
-@enduml

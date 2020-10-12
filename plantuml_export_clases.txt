@@ -1,0 +1,78 @@
+@startuml
+
+title Modelo del dominio del juego MasterMind - Class Diagram
+
+
+
+
+PartidaMasterMind *-- Tablero
+PartidaMasterMind *-- "2" Jugador
+PartidaMasterMind *-- "1..4" Ronda
+PartidaMasterMind *-- Ganador
+Tablero *-- "12" Fila
+Tablero *-- "1" FilaCodigoSecreto
+Tablero *-- "192" Clavija
+Tablero *-- "60" Espiga
+Tablero *-- "4" EspigaPuntuacion
+
+
+Jugador <|-- Cifrador
+Jugador <|-- Descifrador
+Jugador *-- ColorPuntuacion
+
+Fila *-- "5" AgujeroGrande
+Fila *-- "5" AgujeroPista
+Fila *-- "2" AgujeroPuntuacion
+FilaCodigoSecreto *-- "5" AgujeroGrande
+
+Ronda *-- Inicio
+Ronda *-- "1..n" Jugada
+Ronda *-- Cifrador
+Ronda *-- Descifrador
+Ronda *-- Final
+Ronda --> FilaCodigoSecreto
+Ronda --> "anuncia" Ganador
+
+Inicio *-- AsignacionCodigoSecreto
+AsignacionCodigoSecreto ..> Cifrador
+
+Final *-- AsignacionPuntuacion
+Final *-- InversionRoles
+InversionRoles ..> Cifrador
+InversionRoles ..> Descifrador
+InversionRoles ..> Ronda
+
+AsignacionPuntuacion ..> Cifrador
+Jugada *-- AsignacionCombinacion
+Jugada *-- AsignacionPista
+Jugada --> "sobre" Fila
+AsignacionPista ..> Cifrador
+AsignacionCombinacion ..> Descifrador
+
+
+
+ColorClavija <|-- Rosa
+ColorClavija <|-- Blanco
+ColorClavija <|-- Amarillo
+ColorClavija <|-- Verde
+ColorClavija <|-- Marrón
+ColorClavija <|-- Negro
+ColorClavija <|-- Rojo
+ColorClavija <|-- Azul
+
+
+
+ColorEspiga <|-- Negro
+ColorEspiga <|-- Blanco
+
+Clavija *-- ColorClavija
+Espiga *-- ColorEspiga
+
+EspigaPuntuacion *-- ColorPuntuacion
+
+ColorPuntuacion <|-- Rojo
+ColorPuntuacion <|-- Azul
+
+
+
+@enduml

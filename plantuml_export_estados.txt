@@ -1,0 +1,26 @@
+@startuml
+
+title Modelo de estados del juego MasterMind para una ronda de juego- state Diagram
+
+
+[*] --> JugadoresSeleccionados : [Seleccion de Cifrador y Descifrador]
+
+
+JugadoresSeleccionados --> ComienzoJugada: [Cifrador Configura CodigoSecreto]
+
+ComienzoJugada --> CombinacionHecha: [Descifrador coloca combinacion]
+
+CombinacionHecha --> PistaDada: [Cifrador configura pista]
+
+PistaDada --> ComienzoJugada: [No se acierta. Siguiente jugada]
+
+PistaDada --> RondaAgotada: [No se acierta y se consumen todas las filas]
+
+PistaDada --> CombinacionAcertada : [se acierta]
+
+CombinacionAcertada -->  [*] : [Cifrador coloca puntuación]
+
+RondaAgotada --> [*] : [Cifrador coloca puntuación]
+
+
+@enduml

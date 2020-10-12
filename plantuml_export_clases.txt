@@ -32,6 +32,7 @@ Ronda *--> Descifrador
 Ronda *--> Final
 Ronda --> FilaCodigoSecreto
 Ronda --> "anuncia" Ganador
+Ganador ..> "1" Jugador
 
 Inicio *--> AsignacionCodigoSecreto
 AsignacionCodigoSecreto ..> Cifrador

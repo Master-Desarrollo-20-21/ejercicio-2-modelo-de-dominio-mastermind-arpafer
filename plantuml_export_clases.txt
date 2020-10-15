@@ -3,71 +3,85 @@ title Modelo del dominio del juego MasterMind - Class Diagram
 
 
 
-PartidaMasterMind *--> Tablero
-PartidaMasterMind *--> "2" Jugador
-PartidaMasterMind *--> "1..4" Ronda
-PartidaMasterMind *--> Ganador
-Tablero *--> "12" Fila
-Tablero *--> "1" FilaCodigoSecreto
-Tablero *--> "192" Clavija
-Tablero *--> "60" Espiga
-Tablero *--> "4" EspigaPuntuacion
+PlayingMasterMind *--> Board
+PlayingMasterMind *--> "2" Player
+PlayingMasterMind *--> "1..4" Round
+
+Board *--> "12" Row
+Board *--> "1" SecretCodeRow
+Board *--> "192" Piece
+Board *--> "60" TrackPiece
+Board *--> "4" ScorePiece
 
 
-Jugador <|-- Cifrador
-Jugador <|-- Descifrador
-Jugador *--> ColorPuntuacion
+Player <|-- CodeMaker
+Player <|-- CodeBraker
+Player *--> ScoreColor
 
-Fila *--> "5" AgujeroGrande
-Fila *--> "5" AgujeroPista
-Fila *--> "2" AgujeroPuntuacion
-FilaCodigoSecreto *--> "5" AgujeroGrande
+Row *--> "5" BigHole
+Row *--> "5" TrackHole
+Row *--> "2" ScoreHole
 
-Ronda *--> Inicio
-Ronda *--> "1..12" Jugada
-Ronda *--> Cifrador
-Ronda *--> Descifrador
-Ronda *--> Final
-Ronda --> FilaCodigoSecreto
-Ronda --> "anuncia" Ganador
-Ganador ..> "1" Jugador
+CodeMaker --> SecretCode
 
-Inicio *--> AsignacionCodigoSecreto
-AsignacionCodigoSecreto ..> Cifrador
-
-Final *--> AsignacionPuntuacion
-Final *--> InversionRoles
-InversionRoles ..> Cifrador
-InversionRoles ..> Descifrador
-InversionRoles ..> Ronda
-
-AsignacionPuntuacion ..> Cifrador
-Jugada *--> AsignacionCombinacion
-Jugada *--> AsignacionPista
-Jugada --> "sobre" Fila
-AsignacionPista ..> Cifrador
-AsignacionCombinacion ..> Descifrador
+PieceColor <|-- Pink
+PieceColor <|-- White
+PieceColor <|-- Yellow
+PieceColor <|-- Green
+PieceColor <|-- Barrow
+PieceColor <|-- Black
+PieceColor <|-- Red
+PieceColor <|-- Blue
 
 
+TrackColor <|-- Black
+TrackColor <|-- White
 
-ColorClavija <|-- Rosa
-ColorClavija <|-- Blanco
-ColorClavija <|-- Amarillo
-ColorClavija <|-- Verde
-ColorClavija <|-- Marrón
-ColorClavija <|-- Negro
-ColorClavija <|-- Rojo
-ColorClavija <|-- Azul
+Piece *--> PieceColor
+TrackPiece *--> TrackColor
+
+ScorePiece *--> ScoreColor
+
+ScoreColor <|-- Red
+ScoreColor <|-- Blue
+
+Round *--> SecretCode
+SecretCode --> SecretCodeRow
+SecretCodeRow *-- "5" BigHole
+Round *--> "1..12" Tried
+
+Round *--> ScoreBoard
+Round *--> RoleSelection
+
+RoleSelection --> CodeBraker
+RoleSelection --> CodeMaker
+
+CodeMaker <|-- Winner
+CodeMaker <|-- Loser
+Winner --> Successful
+Loser --> Failed
+
+
+Tried *--> Combination
+Tried *--> Track
+Tried -->  Row
+Tried *--> Test
+
+Combination --> "5" Piece
+Combination --> "5" BigHole
+Track --> "5" TrackPiece
+Track --> "5" TrackHole
+
+
+ScoreBoard --> "1" ScorePiece
+ScoreBoard --> "1" ScoreHole
+
+Test ..> Combination
+Test ..> Track
+Test ..> SecretCode
+
+Test <|-- Successful
+Test <|-- Failed
 
 
 
-ColorEspiga <|-- Negro
-ColorEspiga <|-- Blanco
-
-Clavija *--> ColorClavija
-Espiga *--> ColorEspiga
-
-EspigaPuntuacion *--> ColorPuntuacion
-
-ColorPuntuacion <|-- Rojo
-ColorPuntuacion <|-- Azul
